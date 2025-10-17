@@ -53,3 +53,8 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+file
+file.hex
+.cache
+compile_commands.json
