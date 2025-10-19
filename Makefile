@@ -16,3 +16,9 @@ all:
 	avr-gcc -mmcu=atmega328p build/main.o -o file
 	avr-objcopy -O ihex -R .eeprom file file.hex
 	avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:file.hex
+
+# all-refactor:
+# 	avr-gcc -DF_CPU=16000000UL -mmcu=atmega328p -Wall -Os -c -o build/main_refactor.o main_refactor.c
+# 	avr-gcc -mmcu=atmega328p build/main_refactor.o -o file
+# 	avr-objcopy -O ihex -R .eeprom file file.hex
+# 	avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:file.hex

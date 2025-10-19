@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include <avr/sfr_defs.h>
 
-#define COUNTER_RESET_PERIOD 0.016384 // Derived from clkCPU and prescaler.
+#define TIMER_PERIOD 0.016384 // Derived from clkCPU and prescaler.
 #define BAR_LEN 3
 
 #define USER_LED_1 PORTB5
@@ -17,21 +17,15 @@
 #define OC2B_PIN PORTD3
 
 typedef enum { STARTED, PAUSED, TESTING } StateProgram;
-typedef struct {
-  short step;
-  short interval;
-  char toggled;
-  short offTime;
-} LEDTiming;
 
-// Time is divided by COUNTER_RESET_PERIOD to get number of overflows needed for
-// that time, so unit is in number of overflows.
-volatile const unsigned long barLen = BAR_LEN / COUNTER_RESET_PERIOD;
+// Time is divided by TIMER_PERIOD to get number of overflows needed for that
+// time, so unit is in number of overflows.
+volatile const unsigned long barLen = BAR_LEN / TIMER_PERIOD;
 volatile const unsigned long step1 =
-    (unsigned long)((BAR_LEN * 1. / 4) / COUNTER_RESET_PERIOD);
+    (unsigned long)((BAR_LEN * 1. / 4) / TIMER_PERIOD);
 volatile const unsigned long step2 =
-    (unsigned long)((BAR_LEN * 1. / 7) / COUNTER_RESET_PERIOD);
-volatile const unsigned long intervLED = 0.1 / COUNTER_RESET_PERIOD;
+    (unsigned long)((BAR_LEN * 1. / 7) / TIMER_PERIOD);
+volatile const unsigned long intervLED = 0.1 / TIMER_PERIOD;
 volatile unsigned long interv1 = 0;
 volatile unsigned long interv2 = 0;
 volatile int toggled1 = 0;
@@ -41,7 +35,7 @@ volatile int offTime2 = 0;
 volatile unsigned long blinkTimer = 0;
 volatile StateProgram state = TESTING;
 
-volatile const unsigned int debounce = 0.5 / COUNTER_RESET_PERIOD;
+volatile const unsigned int debounce = 0.5 / TIMER_PERIOD;
 volatile int buttonStatus = NOPUSH;
 volatile int buttonTimer;
 
