@@ -8,7 +8,7 @@ LEDS blink in polyrhythm. Wired on Arduino UNO but the code is written in C usin
 
 ## Video Demo
 
-![Video](polyrhythm.mp4)
+[![Video](https://img.youtube.com/vi/Qb9QaDSoCYM/maxresdefault.jpg)](https://www.youtube.com/watch?v=Qb9QaDSoCYM)
 
 To do:
 - Implement a piezo buzzer.
